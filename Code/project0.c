@@ -5,6 +5,28 @@
 #define MEM_MAX  99 
 #define BYTE_SIZE  4
 
+
+int MoveInteger(char fromLocation, char toLocation, char *ptr)
+{
+	//create an int pointer
+	int *intPtr;
+
+	//set the char ptr to the location to be moved
+	//ptr = ptr[fromLocation];
+
+	//set the int ptr to the char ptr
+	intPtr = (int*)ptr;
+
+	//copy the contents of the memory location at the int pointer 
+	int temp = intPtr[fromLocation];
+
+	//write the data to the new memory location
+	intPtr[toLocation] = temp;	
+}
+	
+
+
+
 int WriteByteToMemory(char location, char *ptr, char data)
 {
 	//add the byte to memory 
@@ -12,16 +34,16 @@ int WriteByteToMemory(char location, char *ptr, char data)
 }
 
 
-int WriteIntToMemory(char location, char *ptr, int data)
+int WriteIntToMemory(int location, char *ptr, int data)
 {
 	//create int pointer
 	int *intPtr;
 	
 	//set the int pointer to the memory address to write to
-	intPtr = (int)ptr;
+	intPtr = (int*)ptr;
 
 	//write the data to memory
-	intPtr[location] = data;
+	intPtr[location] =data; 
 
 	//debug
 	//printf("memory written: %d", intPtr[location]);
@@ -39,7 +61,7 @@ int ReadIntFromMemory(int location, char *ptr)
 	int *intPtr;
 
 	//set the int pointer to the memory location
-	intPtr = (int)ptr;
+	intPtr = (int*)ptr;
 
 	//read memory
 	return intPtr[location];	
@@ -53,16 +75,12 @@ int main(int argc, char * argv[])
 	char memory[99];
 
 	//add some chars to mem 
-	WriteByteToMemory(0, memory, 1);
-	char result = ReadByteFromMemory(0, memory);
-	printf("result is: %d\n", (int)result);	
+	WriteIntToMemory(0, memory,594 );
+	int data = ReadIntFromMemory(0, memory);
+	printf("data is: %d\n", data);
 
-	//test integer fcts
-	printf("testing int\n");
-	
-	WriteIntToMemory(0, memory, 65535);
-	int intResult = ReadIntFromMemory(0, memory);
-	printf("int result %d\n", intResult);
-
+	MoveInteger(0, 10, memory);
+	data = ReadIntFromMemory(10, memory);
+	printf("data is: %d\n", data);
 
 }
