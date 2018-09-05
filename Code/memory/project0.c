@@ -75,8 +75,11 @@ int main(int argc, char * argv[])
 	char memory[99];
 
 	//add some chars to mem 
-	WriteIntToMemory(0, memory,594 );
+	int test = 'abcd';	
+	printf("test = %s\n", test);
+	WriteIntToMemory(0, memory, test );
 	int data = ReadIntFromMemory(0, memory);
+		
 	printf("data is: %d\n", data);
 
 	MoveInteger(0, 10, memory);
